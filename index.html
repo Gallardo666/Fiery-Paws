@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiery Paws - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto', sans-serif; /* Change font to Roboto */
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px; /* Add height for horizontal scrollbar */
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0; /* Slightly darker track for contrast */
+            border-radius: 10px; /* Rounded corners for track */
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #d94e4e; /* Reddish color for thumb */
+            border-radius: 10px; /* Rounded corners for thumb */
+            border: 2px solid #e0e0e0; /* Match track color for border */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #b33a3a; /* Darker shade on hover */
+        }
+
+        .background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #2e1a1a; /* Dark reddish background */
+            z-index: 0;
+            overflow: hidden; /* Ensure no overflow */
+        }
+        main{
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            background-color: #333; /* Dark gray background for contrast */
+            margin: 0 auto; /* Center content */
+            width: 100%; /* Full width */
+            min-height: 100vh; /* Ensure content covers full height */
+            color: #dcdcdc; /* Light gray text color */
+            box-sizing: border-box; /* Include padding and border in element's total width */
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        .hexagon {
+            fill: none;
+            stroke: #d94e4e; /* Reddish color for hexagons */
+            stroke-width: 2;
+            transition: transform 0.5s ease-out;
+            transform-origin: center;
+            filter: drop-shadow(0 0 5px #d94e4e); /* Neon glow effect in reddish */
+        }
+        header {
+            background-color: transparent; /* Make header background transparent */
+            color: white;
+            width: 100%;
+            height: 100vh; /* Full screen height */
+            display: flex;
+            justify-content: space-between; /* Space between text and logo */
+            align-items: center;
+            padding: 0 40px; /* Add padding to the sides */
+            text-align: left;
+            position: relative;
+            z-index: 2; /* Ensure header is above other content */
+            box-sizing: border-box; /* Include padding and border in element's total width */
+        }
+        header h1 {
+            font-size: 10rem; /* Increase font size for header text */
+            margin-left: 5%;
+        }
+        
+        header img{
+            width: 16rem;
+            height: 16rem;
+            margin-right: 10%;
+        }
+
+        nav {
+            background-color: #d94e4e;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            width: 100%; /* Ensure nav occupies full width */
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 10px 0;
+            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center; /* Center the nav items */
+            align-items: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a, nav ul li button {
+            color: white;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for hover effect */
+        }
+        nav ul li a:hover, nav ul li button:hover {
+            color: #ffcccb; /* Lighten color on hover */
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+            margin-left: auto; /* Move auth buttons to the right */
+        }
+        .auth-buttons button {
+            background-color: #ffcccb;
+            color: #2e1a1a;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #ffcccb;
+            box-shadow: 0 0 10px #ffcccb;
+            margin-right: 20px; /* Add margin to separate from the edge */
+        }
+        .auth-buttons button:hover {
+            background-color: transparent;
+            color: #ffcccb;
+            box-shadow: 0 0 20px #ffcccb;
+        }
+        footer {
+            background-color: #d94e4e; /* Reddish color for footer */
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            position: relative; /* Change to relative to allow scrolling */
+            z-index: 2; /* Ensure footer is above other content */
+            box-sizing: border-box; /* Include padding and border in element's total width */
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <svg id="grid"></svg>
+    </div>
+    <header>
+        <h1>Fiery Paws</h1>
+        <img src="Images/red-panda.png" alt="Logo"> <!-- Placeholder for logo -->
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#about">Inicio</a></li>
+            <li><a href="#habitat">Hábitat</a></li>
+            <li><a href="#behavior">Comportamiento</a></li>
+            <li><a href="#conservation">Conservación</a></li>
+            <li><a href="#gallery">Galería</a></li>
+            <div class="auth-buttons">
+                <button id="openLoginModal">Sign In</button>
+                <button id="openRegisterModal">Sign Up</button>
+            </div>
+        </ul>
+    </nav>
+    <main>
+        <div class="content">
+            <section id="about">
+                <h2>Sobre los Pandas Rojos</h2>
+                <p>Los pandas rojos son mamíferos nativos del Himalaya oriental y el suroeste de China. Son conocidos por su pelaje rojizo y su cola anillada.</p>
+                <img src="red-panda.jpg" alt="Panda Rojo">
+            </section>
+            <section id="habitat">
+                <h2>Hábitat de los Pandas Rojos</h2>
+                <p>Los pandas rojos habitan en los bosques templados del Himalaya oriental y el suroeste de China. Prefieren áreas con abundante bambú, que es su principal fuente de alimento.</p>
+                <img src="habitat.jpg" alt="Hábitat de los Pandas Rojos">
+            </section>
+            <section id="behavior">
+                <h2>Comportamiento y Dieta</h2>
+                <p>Los pandas rojos son animales solitarios y nocturnos. Pasan la mayor parte del tiempo en los árboles y se alimentan principalmente de bambú, aunque también comen frutas e insectos.</p>
+                <img src="behavior.jpg" alt="Comportamiento de los Pandas Rojos">
+            </section>
+            <section id="conservation">
+                <h2>Conservación y Amenazas</h2>
+                <p>Los pandas rojos están clasificados como una especie en peligro de extinción. Las principales amenazas incluyen la pérdida de hábitat, el cambio climático y la caza furtiva.</p>
+                <img src="conservation.jpg" alt="Conservación de los Pandas Rojos">
+            </section>
+            <section id="gallery">
+                <h2>Galería de Pandas Rojos</h2>
+                <p>Disfruta de nuestra colección de fotos y videos de pandas rojos en su hábitat natural.</p>
+                <img src="gallery1.jpg" alt="Panda Rojo 1">
+                <img src="gallery2.jpg" alt="Panda Rojo 2">
+                <img src="gallery3.jpg" alt="Panda Rojo 3">
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Fiery Paws</p>
+    </footer>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Registrarse</h2>
+            <form>
+                <label for="reg-username">Nombre de usuario:</label>
+                <input type="text" id="reg-username" name="username" required>
+                <label for="reg-email">Correo electrónico:</label>
+                <input type="email" id="reg-email" name="email" required>
+                <label for="reg-password">Contraseña:</label>
+                <input type="password" id="reg-password" name="password" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form>
+                <label for="login-username">Nombre de usuario:</label>
+                <input type="text" id="login-username" name="username" required>
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" name="password" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const svg = document.getElementById('grid');
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const size = 200; // Increased size of the hexagon cells
+
+        function createGrid() {
+            const hexHeight = Math.sqrt(3) * size;
+            for (let y = 0; y < height + hexHeight; y += hexHeight * 0.75) {
+                for (let x = 0; x < width + size; x += size * 1.5) {
+                    const offsetX = (y / (hexHeight * 0.75)) % 2 === 0 ? 0 : size * 0.75;
+                    const points = createHexagonPoints(x + offsetX, y, size);
+                    const hexagon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    hexagon.setAttribute('class', 'hexagon');
+                    hexagon.setAttribute('points', points);
+                    svg.appendChild(hexagon);
+                }
+            }
+        }
+
+        function createHexagonPoints(cx, cy, size) {
+            const angle = Math.PI / 3;
+            let points = '';
+            for (let i = 0; i < 6; i++) {
+                const x = cx + size * Math.cos(angle * i);
+                const y = cy + size * Math.sin(angle * i);
+                points += `${x},${y} `;
+            }
+            return points.trim();
+        }
+
+        createGrid();
+
+        // Change event listener to track mouse movements over the entire document
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            document.querySelectorAll('.hexagon').forEach(hexagon => {
+                const points = hexagon.getAttribute('points').split(' ')[0].split(',');
+                const hx = parseFloat(points[0]);
+                const hy = parseFloat(points[1]);
+                const dx = clientX - hx;
+                const dy = clientY - hy;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const scale = Math.max(1, 1.2 - dist / 500);
+                const translateX = -dx / dist * 5; // Reduced translation for uniformity
+                const translateY = -dy / dist * 5; // Reduced translation for uniformity
+                hexagon.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+            });
+        });
+
+        // Modal functionality
+        const registerModal = document.getElementById("registerModal");
+        const loginModal = document.getElementById("loginModal");
+        const openRegisterBtn = document.getElementById("openRegisterModal");
+        const openLoginBtn = document.getElementById("openLoginModal");
+        const closeBtns = document.querySelectorAll(".close");
+
+        openRegisterBtn.onclick = function() {
+            registerModal.style.display = "block";
+        }
+
+        openLoginBtn.onclick = function() {
+            loginModal.style.display = "block";
+        }
+
+        closeBtns.forEach(btn => {
+            btn.onclick = function() {
+                registerModal.style.display = "none";
+                loginModal.style.display = "none";
+            }
+        });
+
+        window.onclick = function(event) {
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
