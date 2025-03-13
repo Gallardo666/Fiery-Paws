@@ -660,37 +660,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     });
 
-    // Modals
+    // Modales
     const registerModal = document.getElementById("registerModal");
     const loginModal = document.getElementById("loginModal");
     const openRegisterBtn = document.getElementById("openRegisterModal");
     const openLoginBtn = document.getElementById("openLoginModal");
     const closeBtns = document.querySelectorAll(".close");
 
+    // Abrir el modal de registro (Sign Up)
     openRegisterBtn.onclick = function() {
         registerModal.style.display = "flex";  // Usar "flex" para centrar el modal
     }
 
+    // Abrir el modal de inicio de sesión (Sign In)
     openLoginBtn.onclick = function() {
         loginModal.style.display = "flex";  // Usar "flex" para centrar el modal
     }
 
+    // Cerrar ambos modales cuando se haga clic en el botón de cerrar
     closeBtns.forEach(btn => {
         btn.onclick = function() {
-            registerModal.style.display = "none";
-            loginModal.style.display = "none";
+            registerModal.style.display = "none"; // Cerrar el modal de Sign Up
+            loginModal.style.display = "none"; // Cerrar el modal de Sign In
         }
     });
 
+    // Cerrar el modal de Sign Up si haces clic fuera del área del modal
     window.onclick = function(event) {
-        if (event.target == registerModal) {
-            registerModal.style.display = "none";
+        if (event.target === registerModal) {
+            registerModal.style.display = "none"; // Cerrar el modal de Sign Up
         }
-        if (event.target == loginModal) {
-            loginModal.style.display = "none";
+        // No hacemos nada para el modal de login aquí para que no se cierre si se hace clic fuera
+    }
+
+    // Hacemos lo mismo con el modal de login si es necesario
+    window.onclick = function(event) {
+        if (event.target === registerModal) {
+            registerModal.style.display = "none"; // Cerrar el modal de Sign Up
+        }
+        if (event.target === loginModal) {
+            loginModal.style.display = "none"; // Cerrar el modal de Sign In
         }
     }
 
+    // Asegurarnos de que todo esté listo una vez el DOM se haya cargado completamente
     document.addEventListener('DOMContentLoaded', () => {
         const sections = document.querySelectorAll('section');
             
@@ -715,69 +728,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     });
 
-    // Formulario Inicio Sesion
-    document.addEventListener('DOMContentLoaded', () => {
-        const loginModal = document.getElementById("loginModal");
-        const openLoginBtn = document.getElementById("openLoginModal");
-        const closeBtns = document.querySelectorAll(".close");
-        const logoutBtn = document.getElementById("logoutBtn");
+    // Procesamiento del formulario de inicio de sesión con AJAX
+    document.getElementById("loginForm").onsubmit = function(event) {
+        event.preventDefault(); // Prevenir la acción predeterminada de envío del formulario
 
-        // Mostrar el modal de login
-        openLoginBtn.onclick = function() {
-            loginModal.style.display = "flex";  // Usar "flex" para centrar el modal
-        };
+        const username = document.getElementById("login-username").value;
+        const password = document.getElementById("login-password").value;
 
-        // Cerrar el modal de login
-        closeBtns.forEach(btn => {
-            btn.onclick = function() {
-                loginModal.style.display = "none";
-            };
-        });
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "login.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        window.onclick = function(event) {
-            if (event.target == loginModal) {
-                loginModal.style.display = "none";
+        // Enviar los datos del formulario
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                const response = xhr.responseText.trim();
+                if (response == "success") {
+                    // Si el inicio de sesión es exitoso, mostrar el nombre y cambiar el botón
+                    alert("Inicio de sesión exitoso");
+                    loginModal.style.display = "none"; // Cerrar el modal
+                    document.querySelector('.auth-buttons').innerHTML = `
+                        <p>${username}</p> <!-- Mostrar el nombre del usuario -->
+                        <button id="logoutBtn" onclick="logout()">Log Out</button>
+                    `;
+                    document.getElementById("logoutBtn").style.display = "block";  // Mostrar el botón de logout
+                } else {
+                    alert("Error: Usuario o contraseña incorrectos");
+                }
+            } else {
+                alert("Error al procesar el inicio de sesión");
             }
         };
 
-        // Procesar el formulario de login con AJAX
-        document.getElementById("loginForm").onsubmit = function(event) {
-            event.preventDefault(); // Prevenir la acción predeterminada de envío del formulario
+        xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
+    };
 
-            const username = document.getElementById("login-username").value;
-            const password = document.getElementById("login-password").value;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "login.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            // Enviar los datos del formulario
-            xhr.onload = function() {
-                if (xhr.status == 200) {
-                    const response = xhr.responseText.trim();
-                    if (response == "success") {
-                        // Si el inicio de sesión es exitoso, mostrar el nombre y cambiar el botón
-                        alert("Inicio de sesión exitoso");
-                        loginModal.style.display = "none"; // Cerrar el modal
-                        document.querySelector('.auth-buttons').innerHTML = `
-                            <p>${username}</p> <!-- Mostrar el nombre del usuario -->
-                            <button id="logoutBtn" onclick="logout()">Log Out</button>
-                        `;
-                        logoutBtn.style.display = "block";  // Mostrar el botón de logout
-                    } else {
-                        alert("Error: Usuario o contraseña incorrectos");
-                    }
-                } else {
-                    alert("Error al procesar el inicio de sesión");
-                }
-            };
-
-            xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
-        };
-
-        // Verificar si el usuario ya está logueado al cargar la página
-        checkLoginStatus();
-    });
+    // Verificar si el usuario ya está logueado al cargar la página
+    checkLoginStatus();
 
     function checkLoginStatus() {
         // Realizar una petición para verificar si el usuario está logueado
@@ -816,6 +803,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         xhr.send();
     }
 </script>
+
 
 
     </body>
