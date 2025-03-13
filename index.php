@@ -488,29 +488,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <img src="Images/Logos/red-panda.png" alt="Logo">
     </header>
     <nav>
-    <ul>
-        <li><a href="#about">Inicio</a></li>
-        <li><a href="#habitat">Hábitat</a></li>
-        <li><a href="#behavior">Comportamiento</a></li>
-        <li><a href="#conservation">Conservación</a></li>
-        <li><a href="#gallery">Galería</a></li>
-        <div class="auth-buttons">
-            <?php if (isset($_SESSION['username'])): ?>
-                <!-- Mostrar el nombre del usuario y el botón de "Donación" -->
-                <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
-                <a href="adoption.php">
-                    <button>Donación</button>
-                </a>
-                <button id="logoutBtn" onclick="logout()">Log Out</button>
-            <?php else: ?>
-                <!-- Mostrar los botones de "Sign In" y "Sign Up" si no están logueados -->
-                <button id="openLoginModal">Sign In</button>
-                <button id="openRegisterModal">Sign Up</button>
-            <?php endif; ?>
-        </div>
-    </ul>
-</nav>
+        <ul>
+            <li><a href="#about">Inicio</a></li>
+            <li><a href="#habitat">Hábitat</a></li>
+            <li><a href="#behavior">Comportamiento</a></li>
+            <li><a href="#conservation">Conservación</a></li>
+            <li><a href="#gallery">Galería</a></li>
+            <div class="auth-buttons">
+                <?php if (isset($_SESSION['username'])): ?>
+                    <p><?php echo htmlspecialchars($_SESSION['username']); ?></p> <!-- Solo el nombre -->
+                    <a href="adoption.php">
+                        <button>Donación</button>
+                    </a>
+                    <!-- Cambié la redirección a un evento de JavaScript -->
+                    <button id="logoutBtn" style="display:none;" onclick="logout()">Log Out</button>
+                <?php else: ?>
+                    <button id="openLoginModal">Sign In</a></button>
+                    <button id="openRegisterModal">Sign Up</button>
+                <?php endif; ?>
+            </div>
 
+        </ul>
+    </nav>
     <main>
         <div class="content">
             <section id="about">
@@ -669,11 +668,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     const closeBtns = document.querySelectorAll(".close");
 
     openRegisterBtn.onclick = function() {
-        registerModal.style.display = "block";
+        registerModal.style.display = "flex";  // Usar "flex" para centrar el modal
     }
 
     openLoginBtn.onclick = function() {
-        loginModal.style.display = "block";
+        loginModal.style.display = "flex";  // Usar "flex" para centrar el modal
     }
 
     closeBtns.forEach(btn => {
@@ -725,7 +724,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Mostrar el modal de login
         openLoginBtn.onclick = function() {
-            loginModal.style.display = "block";
+            loginModal.style.display = "flex";  // Usar "flex" para centrar el modal
         };
 
         // Cerrar el modal de login
@@ -756,16 +755,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             xhr.onload = function() {
                 if (xhr.status == 200) {
                     const response = xhr.responseText.trim();
-                    console.log("Respuesta del servidor: " + response); // Verifica la respuesta en la consola
-                    if (response === "success") {
+                    if (response == "success") {
+                        // Si el inicio de sesión es exitoso, mostrar el nombre y cambiar el botón
                         alert("Inicio de sesión exitoso");
                         loginModal.style.display = "none"; // Cerrar el modal
-                        // Actualizar los botones en la interfaz
                         document.querySelector('.auth-buttons').innerHTML = `
-                            <p>Bienvenido ${username}</p>
+                            <p>${username}</p> <!-- Mostrar el nombre del usuario -->
                             <button id="logoutBtn" onclick="logout()">Log Out</button>
                         `;
-                        document.getElementById("logoutBtn").style.display = "block";  // Mostrar el botón de logout
+                        logoutBtn.style.display = "block";  // Mostrar el botón de logout
                     } else {
                         alert("Error: Usuario o contraseña incorrectos");
                     }
@@ -782,12 +780,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     });
 
     function checkLoginStatus() {
+        // Realizar una petición para verificar si el usuario está logueado
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "check_login.php", true);
+        xhr.open("GET", "check_login.php", true); // check_login.php verificará si hay una sesión activa
         xhr.onload = function() {
             if (xhr.status == 200) {
                 const response = xhr.responseText.trim();
-                console.log("Estado de la sesión: " + response); // Verifica la respuesta en la consola
                 if (response == "logged_in") {
                     // El usuario está logueado, mostrar su nombre y el botón de logout
                     document.querySelector('.auth-buttons').innerHTML = `
@@ -802,14 +800,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     function logout() {
+        // Llamar al archivo PHP para cerrar la sesión
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "logout.php", true);
         xhr.onload = function() {
             if (xhr.status == 200) {
+                // Si la sesión se cierra, actualizar los botones
                 alert("Sesión cerrada");
                 document.querySelector('.auth-buttons').innerHTML = `
                     <button id="openLoginModal">Login</button>
-                    <button id="openRegisterModal">Register</button>
                 `;
                 document.getElementById("logoutBtn").style.display = "none";
             }
@@ -817,6 +816,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         xhr.send();
     }
 </script>
+
 
     </body>
 </html>
