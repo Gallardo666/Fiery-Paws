@@ -169,28 +169,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             gap: 15px;
             margin-left: auto;
         }
-        .auth-buttons button {
-            background-color: #ffcccb;
-            color: #2e1a1a;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid #ffcccb;
-            box-shadow: 0 0 10px #ffcccb;
-            margin-right: 20px;
-        }
-        .auth-buttons button a{
-            color: white;
-            text-decoration:none;
-        }
-        
-        .auth-buttons button:hover {
-            background-color: transparent;
-            color: #ffcccb;
-            box-shadow: 0 0 20px #ffcccb;
-        }
+        .auth-buttons {
+    display: flex;
+    gap: 15px;
+    margin-left: auto;
+    background-color: rgba(255, 0, 0, 0.2); /* Fondo temporal para verificar visibilidad */
+}
+
+.auth-buttons button {
+    background-color: #ffcccb;
+    color: #2e1a1a;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #ffcccb;
+    box-shadow: 0 0 10px #ffcccb;
+    margin-right: 20px;
+}
+
+.auth-buttons button:hover {
+    background-color: transparent;
+    color: #ffcccb;
+    box-shadow: 0 0 20px #ffcccb;
+}
+
         
         main {
             flex: 1;
@@ -380,51 +384,98 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             transform: scale(1.2);
         }
 
-        /* Estilos para el Modal */
+        /* Fondo del modal: oscuro y con desenfoque */
+/* Estilos para el Modal */
 .modal {
-    display: none; /* Ocultamos el modal por defecto */
     position: fixed;
+    top: 0;
     z-index: 5;
     left: 0;
-    top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
+    background: rgba(0, 0, 0, 0.7); /* Darkens the background */
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Contenedor del modal */
 .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
+    position: relative;
+    background: rgba(20, 20, 20, 1); /* Fondo oscuro opaco */
+    color: #f1f1f1;
+    padding: 30px;
     width: 80%;
-    max-width: 400px;
+    max-width: 450px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6); /* Iluminación roja en el borde */
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+/* Efecto de iluminación alrededor del modal */
+.modal-content::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border-radius: 12px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.4) 20%, transparent 80%);
+    z-index: -1;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); /* Glow rojo más intenso */
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+/* Botón estilizado */
+.modal-content button {
+    background-color: var(--modal-button-bg);
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 2px solid var(--modal-button-bg);
+    box-shadow: 0 0 15px var(--modal-button-bg);
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    width: 100%;
+    font-size: 16px;
 }
 
-/* Estilos para el mensaje de registro */
-#registerMessage {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.modal-content button:hover {
+    background-color: var(--modal-button-hover-bg);
+    color: var(--modal-button-bg);
+    transform: scale(1.05);
 }
+
+/* Centrar contenido */
+.modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Botón de cerrar */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #bbb;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+
 
     </style>
 </head>
@@ -437,23 +488,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <img src="Images/Logos/red-panda.png" alt="Logo">
     </header>
     <nav>
-        <ul>
-            <li><a href="#about">Inicio</a></li>
-            <li><a href="#habitat">Hábitat</a></li>
-            <li><a href="#behavior">Comportamiento</a></li>
-            <li><a href="#conservation">Conservación</a></li>
-            <li><a href="#gallery">Galería</a></li>
-            <div class="auth-buttons">
-                <?php if (isset($_SESSION['username'])): ?>
-                    <p>Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>! Thank you for your interest in adopting a red panda.</p>
-                    <a href="adoption.php">Go to the adoption section</a><br>
-                <?php else: ?>
-                    <button id="openLoginModal"><a href="login.php">Sign In</a></button>
-                    <button id="openRegisterModal">Sign Up</button>
-                <?php endif; ?>
-            </div>
-        </ul>
-    </nav>
+    <ul>
+        <li><a href="#about">Inicio</a></li>
+        <li><a href="#habitat">Hábitat</a></li>
+        <li><a href="#behavior">Comportamiento</a></li>
+        <li><a href="#conservation">Conservación</a></li>
+        <li><a href="#gallery">Galería</a></li>
+        <div class="auth-buttons">
+            <?php if (isset($_SESSION['username'])): ?>
+                <!-- Mostrar el nombre del usuario y el botón de "Donación" -->
+                <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
+                <a href="adoption.php">
+                    <button>Donación</button>
+                </a>
+                <button id="logoutBtn" onclick="logout()">Log Out</button>
+            <?php else: ?>
+                <!-- Mostrar los botones de "Sign In" y "Sign Up" si no están logueados -->
+                <button id="openLoginModal">Sign In</button>
+                <button id="openRegisterModal">Sign Up</button>
+            <?php endif; ?>
+        </div>
+    </ul>
+</nav>
+
     <main>
         <div class="content">
             <section id="about">
@@ -524,23 +581,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </footer>
     
-    <!-- Register Modal -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Sign Up</h2>
-            <form action="index.php" method="POST">
-                <label for="reg-username">Nombre de usuario:</label>
-                <input type="text" id="reg-username" name="username" required>
-                <label for="reg-password">Contraseña:</label>
-                <input type="password" id="reg-password" name="password" required>
-                <button type="submit">Registrarse</button>
-            </form>
-        </div>
-    </div>
-
-
-
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -556,88 +596,103 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form action="index.php" method="POST">
+                <label for="reg-username">Nombre de usuario:</label>
+                <input type="text" id="reg-username" name="username" required>
+                <label for="reg-password">Contraseña:</label>
+                <input type="password" id="reg-password" name="password" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        const svg = document.getElementById('grid');
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const size = 100;
+    const svg = document.getElementById('grid');
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const size = 100;
 
-        function createGrid() {
-            const hexHeight = Math.sqrt(3) * size;
-            for (let y = 0; y < height + hexHeight; y += hexHeight * 0.75) {
-                for (let x = 0; x < width + size; x += size * 1.5) {
-                    const offsetX = (y / (hexHeight * 0.75)) % 2 === 0 ? 0 : size * 0.75;
-                    const points = createHexagonPoints(x + offsetX, y, size);
-                    const hexagon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    hexagon.setAttribute('class', 'hexagon');
-                    hexagon.setAttribute('points', points);
-                    svg.appendChild(hexagon);
-                }
+    function createGrid() {
+        const hexHeight = Math.sqrt(3) * size;
+        for (let y = 0; y < height + hexHeight; y += hexHeight * 0.75) {
+            for (let x = 0; x < width + size; x += size * 1.5) {
+                const offsetX = (y / (hexHeight * 0.75)) % 2 === 0 ? 0 : size * 0.75;
+                const points = createHexagonPoints(x + offsetX, y, size);
+                const hexagon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                hexagon.setAttribute('class', 'hexagon');
+                hexagon.setAttribute('points', points);
+                svg.appendChild(hexagon);
             }
         }
+    }
 
-        function createHexagonPoints(cx, cy, size) {
-            const angle = Math.PI / 3;
-            let points = '';
-            for (let i = 0; i < 6; i++) {
-                const x = cx + size * Math.cos(angle * i);
-                const y = cy + size * Math.sin(angle * i);
-                points += `${x},${y} `;
-            }
-            return points.trim();
+    function createHexagonPoints(cx, cy, size) {
+        const angle = Math.PI / 3;
+        let points = '';
+        for (let i = 0; i < 6; i++) {
+            const x = cx + size * Math.cos(angle * i);
+            const y = cy + size * Math.sin(angle * i);
+            points += `${x},${y} `;
         }
+        return points.trim();
+    }
 
-        createGrid();
+    createGrid();
 
-        //MOvimiento 
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            document.querySelectorAll('.hexagon').forEach(hexagon => {
-                const points = hexagon.getAttribute('points').split(' ')[0].split(',');
-                const hx = parseFloat(points[0]);
-                const hy = parseFloat(points[1]);
-                const dx = clientX - hx;
-                const dy = clientY - hy;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const scale = Math.max(1, 1.2 - dist / 500);
-                const translateX = -dx / dist * 5;
-                const translateY = -dy / dist * 5;
-                hexagon.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-            });
+    // Movimiento Hexágonos
+    document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        document.querySelectorAll('.hexagon').forEach(hexagon => {
+            const points = hexagon.getAttribute('points').split(' ')[0].split(',');
+            const hx = parseFloat(points[0]);
+            const hy = parseFloat(points[1]);
+            const dx = clientX - hx;
+            const dy = clientY - hy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const scale = Math.max(1, 1.2 - dist / 500);
+            const translateX = -dx / dist * 5;
+            const translateY = -dy / dist * 5;
+            hexagon.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
         });
+    });
 
-        //Modals
-        const registerModal = document.getElementById("registerModal");
-        const loginModal = document.getElementById("loginModal");
-        const openRegisterBtn = document.getElementById("openRegisterModal");
-        const openLoginBtn = document.getElementById("openLoginModal");
-        const closeBtns = document.querySelectorAll(".close");
+    // Modals
+    const registerModal = document.getElementById("registerModal");
+    const loginModal = document.getElementById("loginModal");
+    const openRegisterBtn = document.getElementById("openRegisterModal");
+    const openLoginBtn = document.getElementById("openLoginModal");
+    const closeBtns = document.querySelectorAll(".close");
 
-        openRegisterBtn.onclick = function() {
-            registerModal.style.display = "block";
+    openRegisterBtn.onclick = function() {
+        registerModal.style.display = "block";
+    }
+
+    openLoginBtn.onclick = function() {
+        loginModal.style.display = "block";
+    }
+
+    closeBtns.forEach(btn => {
+        btn.onclick = function() {
+            registerModal.style.display = "none";
+            loginModal.style.display = "none";
         }
+    });
 
-        openLoginBtn.onclick = function() {
-            loginModal.style.display = "block";
+    window.onclick = function(event) {
+        if (event.target == registerModal) {
+            registerModal.style.display = "none";
         }
-
-        closeBtns.forEach(btn => {
-            btn.onclick = function() {
-                registerModal.style.display = "none";
-                loginModal.style.display = "none";
-            }
-        });
-
-        window.onclick = function(event) {
-            if (event.target == registerModal) {
-                registerModal.style.display = "none";
-            }
-            if (event.target == loginModal) {
-                loginModal.style.display = "none";
-            }
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
         const sections = document.querySelectorAll('section');
             
         const options = {
@@ -660,6 +715,108 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             observer.observe(section);
         });
     });
-    </script>
+
+    // Formulario Inicio Sesion
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginModal = document.getElementById("loginModal");
+        const openLoginBtn = document.getElementById("openLoginModal");
+        const closeBtns = document.querySelectorAll(".close");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        // Mostrar el modal de login
+        openLoginBtn.onclick = function() {
+            loginModal.style.display = "block";
+        };
+
+        // Cerrar el modal de login
+        closeBtns.forEach(btn => {
+            btn.onclick = function() {
+                loginModal.style.display = "none";
+            };
+        });
+
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+        };
+
+        // Procesar el formulario de login con AJAX
+        document.getElementById("loginForm").onsubmit = function(event) {
+            event.preventDefault(); // Prevenir la acción predeterminada de envío del formulario
+
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "login.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            // Enviar los datos del formulario
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    const response = xhr.responseText.trim();
+                    console.log("Respuesta del servidor: " + response); // Verifica la respuesta en la consola
+                    if (response === "success") {
+                        alert("Inicio de sesión exitoso");
+                        loginModal.style.display = "none"; // Cerrar el modal
+                        // Actualizar los botones en la interfaz
+                        document.querySelector('.auth-buttons').innerHTML = `
+                            <p>Bienvenido ${username}</p>
+                            <button id="logoutBtn" onclick="logout()">Log Out</button>
+                        `;
+                        document.getElementById("logoutBtn").style.display = "block";  // Mostrar el botón de logout
+                    } else {
+                        alert("Error: Usuario o contraseña incorrectos");
+                    }
+                } else {
+                    alert("Error al procesar el inicio de sesión");
+                }
+            };
+
+            xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
+        };
+
+        // Verificar si el usuario ya está logueado al cargar la página
+        checkLoginStatus();
+    });
+
+    function checkLoginStatus() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "check_login.php", true);
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                const response = xhr.responseText.trim();
+                console.log("Estado de la sesión: " + response); // Verifica la respuesta en la consola
+                if (response == "logged_in") {
+                    // El usuario está logueado, mostrar su nombre y el botón de logout
+                    document.querySelector('.auth-buttons').innerHTML = `
+                        <p>Bienvenido</p>
+                        <button id="logoutBtn" onclick="logout()">Log Out</button>
+                    `;
+                    document.getElementById("logoutBtn").style.display = "block";
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    function logout() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "logout.php", true);
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                alert("Sesión cerrada");
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <button id="openLoginModal">Login</button>
+                    <button id="openRegisterModal">Register</button>
+                `;
+                document.getElementById("logoutBtn").style.display = "none";
+            }
+        };
+        xhr.send();
+    }
+</script>
+
     </body>
 </html>

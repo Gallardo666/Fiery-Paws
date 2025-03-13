@@ -3,7 +3,7 @@ session_start();
 
 function validatePassword($password) {
     // Define the password criteria
-    $minLength = 8;
+    $minLength = 6;
     $hasNumber = preg_match('/[0-9]/', $password);
     $hasSpecialChar = preg_match('/[\W]/', $password); // Non-word characters
 
