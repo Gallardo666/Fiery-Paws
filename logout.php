@@ -1,6 +1,7 @@
 <?php
 session_start();
-session_unset();
-session_destroy();
-echo "success"; // Devuelve éxito al cerrar sesión
+session_unset(); // Eliminar todas las variables de sesión
+session_destroy(); // Destruir la sesión
+header("Location: index.php"); // Redirigir al usuario a la página principal
+exit();
 ?>
