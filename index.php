@@ -58,7 +58,8 @@
             filter: drop-shadow(0 0 5px #d94e4e);
         }
         header {
-            background-color: transparent;
+            background-color: rgb(177, 65, 65);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             color: white;
             width: 100%;
             height: 100vh;
@@ -74,6 +75,7 @@
         header h1 {
             font-size: 10rem;
             margin-left: 5%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         header img {
             width: 16rem;
@@ -211,6 +213,12 @@
         section img:hover {
             transform: scale(1.05);
         }
+
+        section#about {
+            opacity: 1; /* Ensure the section is fully visible */
+            transform: translateY(0); /* Remove any initial translation */
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }

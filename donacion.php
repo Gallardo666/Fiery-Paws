@@ -1,8 +1,15 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="es">
+<?php
+session_start();
+
+// Check if the user is authenticated
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page if not authenticated
+    header("Location: index.php");
+    exit();
+}
+?>    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,23 +37,21 @@ session_start();
         }
         /* Custom scrollbar styles */
         ::-webkit-scrollbar {
-                width: 12px;
-                height: 12px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #2e1a1a;
-            }
-            ::-webkit-scrollbar-thumb {
-                background-color: #d94e4e;
-                border-radius: 4px;
-                border: 2px solid #2e1a1a;
-                box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background-color: #b33a3a;
-            }
-
-        
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2e1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #d94e4e;
+            border-radius: 4px;
+            border: 2px solid #2e1a1a;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #b33a3a;
+        }
         .background {
             position: fixed;
             width: 100%;
@@ -81,7 +86,6 @@ session_start();
             position: relative;
             z-index: 2;
             box-sizing: border-box;
-            animation: fadeIn 1s ease-out;
         }
         header h1 {
             font-size: 10rem;
@@ -92,7 +96,6 @@ session_start();
             width: 16rem;
             height: 16rem;
             margin-right: 10%;
-            animation: float 3s ease-in-out infinite;
         }
         nav {
             background-color: rgba(217, 78, 78, 0.9);
@@ -131,6 +134,29 @@ session_start();
             display: flex;
             gap: 15px;
             margin-left: auto;
+            align-items: center;
+        }
+        .auth-buttons p {
+            margin: 0;
+            color: #ffcccb;
+            font-weight: bold;
+        }
+        .auth-buttons button {
+            background-color: #ffcccb;
+            color: #2e1a1a;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #ffcccb;
+            box-shadow: 0 0 10px #ffcccb;
+            margin-right: 10px;
+            width: 100px;
+            height: 40px;
+        }
+        .auth-buttons button:hover {
+            background-color: transparent;
+            color: #ffcccb;
+            box-shadow: 0 0 20px #ffcccb;
         }
         main {
             flex: 1;
@@ -337,11 +363,15 @@ session_start();
     <nav>
         <ul>
             <li><a href="index.php">Inicio</a></li>
-            <li><a href="#about">Sobre Nosotros</a></li>
             <li><a href="#contact">Contacto</a></li>
             <div class="auth-buttons">
-                <button id="openLoginModal">Sign In</button>
-                <button id="openRegisterModal">Sign Up</button>
+                <?php if (isset($_SESSION['username'])): ?>
+                    <p><?php echo htmlspecialchars($_SESSION['username']); ?></p>
+                    <button id="logoutBtn" onclick="window.location.href='logout.php'">Log Out</button>
+                <?php else: ?>
+                    <button id="openLoginModal">Sign In</button>
+                    <button id="openRegisterModal">Sign Up</button>
+                <?php endif; ?>
             </div>
         </ul>
     </nav>
