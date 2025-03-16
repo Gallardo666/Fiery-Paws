@@ -13,6 +13,7 @@
         body, html {
             font-family: 'Roboto', sans-serif;
             scroll-behavior: smooth;
+            background: #2e1a1a;
             height: 100%;
             margin: 0;
             padding: 0;
@@ -638,45 +639,88 @@
             });
         });
 
-        // Ensure the login form is correctly targeted
-        document.getElementById("loginForm").onsubmit = function(event) {
-            event.preventDefault();
+        document.getElementById("registerForm").onsubmit = function(event) {
+    event.preventDefault();
 
-            const username = document.getElementById("login-username").value;
-            const password = document.getElementById("login-password").value;
+    const username = document.getElementById("reg-username").value;
+    const password = document.getElementById("reg-password").value;
+    const registerMessage = document.getElementById("registerMessage");
 
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "login.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "register.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            // Send form data
-            xhr.onload = function() {
-                if (xhr.status == 200) {
-                    const response = xhr.responseText.trim();
-                    const loginMessage = document.getElementById("loginMessage");
-                    if (response == "success") {
-                        loginMessage.textContent = "Inicio de sesión exitoso";
-                        setTimeout(() => {
-                            // Update the DOM to reflect the logged-in state
-                            document.querySelector('.auth-buttons').innerHTML = `
-                                <p>${username}</p>
-                                <a href="donacion.php">
-                                    <button>Donación</button>
-                                </a>
-                                <button id="logoutBtn" onclick="window.location.href='logout.php'">Log Out</button>
-                            `;
-                            loginModal.style.display = "none"; // Close the login modal
-                        }, 1000);
-                    } else {
-                        loginMessage.textContent = "Error: Usuario o contraseña incorrectos";
-                    }
-                } else {
-                    alert("Error al procesar el inicio de sesión");
-                }
-            };
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            const response = xhr.responseText.trim();
+            if (response === "success") {
+                registerMessage.textContent = "Registro exitoso. Ahora puedes iniciar sesión";
+                registerMessage.style.color = "green";
 
-            xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
-        };
+                setTimeout(() => {
+                    registerModal.style.display = "none"; // Cierra el modal
+                    window.location.reload(); // Recarga la página
+                }, 1500);
+            } else if (response) {
+                registerMessage.textContent = response;
+                registerMessage.style.color = "red";
+            } else {
+                registerMessage.textContent = "Error: Respuesta inesperada del servidor.";
+                registerMessage.style.color = "red";
+            }
+        } else {
+            alert("Error al procesar el registro");
+        }
+    };
+
+    xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
+};
+
+
+
+document.getElementById("loginForm").onsubmit = function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value.trim();
+    const loginMessage = document.getElementById("loginMessage");
+
+    if (username === "" || password === "") {
+        loginMessage.textContent = "Error: Todos los campos son obligatorios";
+        return;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "login.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            const response = xhr.responseText.trim();
+            if (response === "success") {
+                loginMessage.textContent = "Inicio de sesión exitoso";
+                
+                setTimeout(() => {
+                    document.querySelector('.auth-buttons').innerHTML = `
+                        <p>${username}</p>
+                        <a href="donacion.php">
+                            <button>Donación</button>
+                        </a>
+                        <button id="logoutBtn" onclick="window.location.href='logout.php'">Log Out</button>
+                    `;
+                    document.getElementById("loginModal").style.display = "none"; // Cierra el modal
+                }, 1000);
+            } else {
+                loginMessage.textContent = response;
+            }
+        } else {
+            loginMessage.textContent = "Error al procesar el inicio de sesión";
+        }
+    };
+
+    xhr.send(`username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+};
+
     </script>
 </body>
 </html>

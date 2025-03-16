@@ -2,15 +2,21 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $conn = new mysqli('localhost', 'root', '', 'users_db'); // Conexión a la base de datos
+    $conn = new mysqli('localhost', 'root', '', 'users_db');
+
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    // Validar y limpiar entrada
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-    // Prepare and execute the query to fetch the user
+    if (empty($username) || empty($password)) {
+        echo "Error: Usuario o contraseña incorrectos";
+        exit();
+    }
+
     $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -20,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_result($hashedPassword);
         $stmt->fetch();
 
-        // Verify the password
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['username'] = $username;
             echo "success";

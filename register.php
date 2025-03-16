@@ -2,10 +2,10 @@
 session_start();
 
 function validatePassword($password) {
-    // Define the password criteria
+    // Define los criterios de la contraseña
     $minLength = 6;
     $hasNumber = preg_match('/[0-9]/', $password);
-    $hasSpecialChar = preg_match('/[\W]/', $password); // Non-word characters
+    $hasSpecialChar = preg_match('/[\W]/', $password); // Caracteres no alfanuméricos
 
     if (strlen($password) < $minLength) {
         return "La contraseña debe tener al menos $minLength caracteres.";
@@ -28,39 +28,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Validate the password
+    // Verificar si el nombre de usuario ya existe
+    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        echo "Error: El nombre de usuario ya está registrado.";
+        $stmt->close();
+        $conn->close();
+        exit; // Detener la ejecución si el usuario ya existe
+    }
+    $stmt->close();
+
+    // Validar la contraseña
     $passwordValidationResult = validatePassword($password);
     if ($passwordValidationResult !== true) {
         echo $passwordValidationResult;
-    } else {
-        // Cifrar la contraseña
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (username, password) VALUES ('$username', '$hashedPassword')";
-        if ($conn->query($sql) === TRUE) {
-            echo "Usuario registrado con éxito. <a href='login.php'>Inicia sesión aquí</a>";
-        } else {
-            echo "Error: " . $conn->error;
-        }
+        $conn->close();
+        exit; // Detener la ejecución si hay un error
     }
+
+    // Cifrar la contraseña e insertar el usuario
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $hashedPassword);
+    if ($stmt->execute()) {
+        // Set session variables to log in the user
+        $_SESSION['username'] = $username;
+        echo "success";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
     $conn->close();
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
-</head>
-<body>
-    <h2>Formulario de Registro</h2>
-    <form action="register.php" method="POST">
-        <label for="username">Usuario:</label>
-        <input type="text" name="username" required><br>
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" required><br>
-        <input type="submit" value="Registrarse">
-    </form>
-</body>
-</html>
