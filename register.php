@@ -1,6 +1,7 @@
 <?php
-session_start();
+session_start(); // Inicia una nueva sesión o reanuda la existente
 
+// Función para validar la contraseña
 function validatePassword($password) {
     // Define los criterios de la contraseña
     $minLength = 6;
@@ -19,8 +20,10 @@ function validatePassword($password) {
     return true;
 }
 
+// Verifica si el método de solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $conn = new mysqli('localhost', 'root', '', 'users_db'); // Conexión a la base de datos
+    // Conexión a la base de datos
+    $conn = new mysqli('localhost', 'root', '', 'users_db');
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
@@ -56,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $username, $hashedPassword);
     if ($stmt->execute()) {
-        // Set session variables to log in the user
+        // Establecer variables de sesión para iniciar sesión al usuario
         $_SESSION['username'] = $username;
         echo "success";
     } else {
