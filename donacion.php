@@ -90,6 +90,7 @@ if (!isset($_SESSION['username'])) {
     <footer>
         <div class="footer-content">
             <div class="footer-left">
+                <h3>Síguenos</h3>
                 <div class="social-media">
                     <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
@@ -97,13 +98,12 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
             <div class="footer-center">
-                <p>&copy; 2023 Fiery Paws</p>
+                <p>&copy; 2025 Fiery Paws. Todos los derechos reservados. Diseñado con pasión por la conservación.</p>
             </div>
             <div class="footer-right">
-                <div class="footer-links">
-                    <a href="privacy.html">Términos de Privacidad</a><br>
-                    <a href="terms.html">Términos y Condiciones</a>
-                </div>
+                <h3>Información</h3>
+                <a href="#" id="openTermsModal">Términos y Condiciones</a>
+                <a href="#" id="openPrivacyModal">Política de Privacidad</a>
             </div>
         </div>
     </footer>

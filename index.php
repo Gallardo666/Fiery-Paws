@@ -45,7 +45,7 @@
                 <h2>Sobre los Pandas Rojos</h2>
                 <p>Los pandas rojos son mamíferos nativos del Himalaya oriental y el suroeste de China. Son conocidos por su pelaje rojizo y su cola anillada.</p>
                 <p>Estos animales son únicos en su especie, con características que los distinguen de otros mamíferos. Su dieta principal consiste en bambú, pero también se alimentan de frutas, insectos y pequeños mamíferos. Los pandas rojos son excelentes trepadores y pasan la mayor parte de su tiempo en los árboles.</p>
-                <img src="Images/PandaInfo/PandaRojo.jpg" alt="Panda Rojo">
+                <img src="Images/PandaInfo/PandaRojo.jpeg" alt="Panda Rojo">
             </section>
             <section id="habitat">
                 <h2>Hábitat de los Pandas Rojos</h2>
@@ -77,8 +77,9 @@
                     <img src="Images/PandaInfo/PandaRojo3.jpg" alt="Panda Rojo 3">
                     <img src="Images/PandaInfo/PandaRojo4.jpg" alt="Panda Rojo 4">
                     <img src="Images/PandaInfo/PandaRojo5.jpeg" alt="Panda Rojo 5">
-                    <img src="Images/PandaInfo/" alt="Panda Rojo 6">
+                    <img src="Images/PandaInfo/PandaRojo6.jpeg" alt="Panda Rojo 6">
                     <img src="Images/PandaInfo/PandaRojo7.jpg" alt="Panda Rojo 7">
+                    <img src="Images/PandaInfo/PandaRojo10.jpg" alt="Panda Rojo 10">
                 </div>
             </section>
             <section id="donaciones">
@@ -96,6 +97,7 @@
                     <?php else: ?>
                         <!-- Botón inactivo si el usuario no está autenticado -->
                         <button disabled style="opacity: 0.5; cursor: not-allowed;">Donación</button>
+                        <span class="login-message">Por favor, inicie sesión para donar.</span>
                     <?php endif; ?>
                 </div>
             </section>
@@ -112,7 +114,7 @@
                 </div>
             </div>
             <div class="footer-center">
-                <p>&copy; 2024 Fiery Paws. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Fiery Paws. Todos los derechos reservados. Diseñado con pasión por la conservación.</p>
             </div>
             <div class="footer-right">
                 <h3>Información</h3>
@@ -159,18 +161,23 @@
             <span class="close">&times;</span>
             <h2>Términos y Condiciones</h2>
             <p>Bienvenido a nuestro sitio web. Al acceder y utilizar este sitio, usted acepta cumplir con los siguientes términos y condiciones.</p>
-                        
+            <br>
+
             <h3>1. Uso del sitio</h3>
             <p>Usted se compromete a usar este sitio solo para fines legales y de acuerdo con las leyes aplicables. Está prohibido utilizar este sitio de manera que pueda dañar, deshabilitar, sobrecargar o deteriorar cualquier servidor o red.</p>
+            <br>
                         
             <h3>2. Registro y cuenta</h3>
             <p>Para utilizar ciertos servicios en el sitio, es posible que deba registrarse y crear una cuenta. Usted es responsable de mantener la confidencialidad de su cuenta y contraseña, y de todas las actividades que ocurran bajo su cuenta.</p>
+            <br>
                         
             <h3>3. Propiedad intelectual</h3>
             <p>Todo el contenido disponible en este sitio, incluyendo textos, imágenes, logotipos, gráficos, es propiedad exclusiva del sitio o de sus licenciantes. Queda prohibida la reproducción, distribución o modificación sin autorización.</p>
+            <br>
                         
             <h3>4. Exoneración de responsabilidad</h3>
             <p>El sitio no será responsable por ningún daño directo, indirecto, incidental o consecuente resultante del uso o la imposibilidad de usar este sitio, o de la interrupción de los servicios proporcionados en este sitio.</p>
+            <br>
                         
             <h3>5. Modificaciones</h3>
             <p>Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Se le notificará de dichos cambios en el sitio web.</p>
@@ -183,21 +190,27 @@
             <span class="close">&times;</span>
             <h2>Política de Privacidad</h2>
             <p>En nuestro sitio web, valoramos su privacidad y nos comprometemos a proteger su información personal. Esta política de privacidad explica cómo recopilamos, usamos y protegemos su información.</p>
+            <br>
                         
             <h3>1. Información que recopilamos</h3>
             <p>Recopilamos información personal que usted nos proporciona al registrarse en el sitio o al interactuar con nuestros servicios, como su nombre, dirección de correo electrónico, dirección IP y otra información relacionada.</p>
+            <br>
                         
             <h3>2. Uso de la información</h3>
             <p>Utilizamos la información que recopilamos para mejorar nuestros servicios, procesar sus solicitudes, enviarle comunicaciones relacionadas con su cuenta, y para cumplir con nuestras obligaciones legales.</p>
+            <br>
                         
             <h3>3. Compartir información</h3>
             <p>No compartimos su información personal con terceros, excepto cuando sea necesario para cumplir con una obligación legal o para mejorar nuestros servicios. En ningún caso venderemos su información personal a terceros.</p>
+            <br>
                         
             <h3>4. Seguridad</h3>
             <p>Implementamos medidas de seguridad razonables para proteger su información personal contra el acceso no autorizado, la alteración o la divulgación. Sin embargo, no podemos garantizar la seguridad absoluta de los datos transmitidos a través de Internet.</p>
+            <br>
                         
             <h3>5. Derechos del usuario</h3>
             <p>Usted tiene el derecho de acceder, corregir o eliminar su información personal. Si desea ejercer estos derechos, puede ponerse en contacto con nosotros a través de los medios proporcionados en el sitio web.</p>
+            <br>
                         
             <h3>6. Cambios en la política de privacidad</h3>
             <p>Podemos actualizar esta política de privacidad ocasionalmente. Le notificaremos sobre cualquier cambio mediante una actualización en esta página.</p>

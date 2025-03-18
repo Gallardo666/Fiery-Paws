@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --background-color: rgb(177, 65, 65);
-    --primary-color: #d94e4e;
+    --background-color: rgb(121, 42, 42);
+    --primary-color: #a03333;
     --secondary-color: #b33a3a;
     --text-color: #dcdcdc;
-    --header-background: #761111;
+    --header-background: #611616;
     --auth-button-background: #ffcccb;
     --auth-button-text: #2e1a1a;
-    --footer-background: #d94e4e;
+    --footer-background: #a03333;
     --footer-link-hover: #fab9b8;
     --modal-background: rgba(20, 20, 20, 1);
     --modal-border: rgba(255, 255, 255, 0.1);
@@ -112,6 +112,11 @@ nav ul {
 nav ul li {
     margin: 0 15px;
 }
+nav ul li img{
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: 1rem;
+}
 
 nav ul li a, nav ul li button {
     color: var(--white-color);
@@ -167,6 +172,12 @@ main {
     justify-content: space-between;
 }
 
+.content img {
+    width: 25rem;
+    height: 25rem;
+    object-fit: cover;
+}
+
 .content {
     flex: 1;
     padding: 20px;
@@ -181,28 +192,10 @@ main {
     border-radius: 8px;
     z-index: 1;
     position: relative;
-}
-
-.content img {
-    width: 25rem;
-    height: 25rem;
-    object-fit: cover;
-}
-
-section {
-    position: relative;
-    margin: 40px 0;
-    padding: 30px;
-    color: #f0f0f0;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    min-height: 100vh;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
 }
 
 section.active {
@@ -220,23 +213,24 @@ section h2 {
 
 section p {
     line-height: 1.8;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-size: 1.1rem;
     animation: fadeIn 1.5s ease-out;
     max-width: 800px;
 }
 
-section img {
+.content img {
     width: 100%;
-    max-width: 500px;
+    max-width: 25rem;
     height: auto;
-    border-radius: 12px;
+    object-fit: cover;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 20px 0;
     transition: transform 0.3s ease;
 }
 
-section img:hover {
+.content img:hover {
     transform: scale(1.05);
 }
 
@@ -270,32 +264,34 @@ section#about {
     transform: scale(1.05);
 }
 
-#gallery {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-}
-
 .gallery {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    gap: 20px;
-    padding: 20px 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px ;
+    padding: 20px;
+    justify-items: start; /* Align items to the start for consistent left alignment */
+    align-items: start; 
+    margin-left: 0;
+    width: 100%; /* Ensure the gallery takes full width for alignment */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .gallery img {
-    width: 130px;
-    height: 180px;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
     object-fit: cover;
     object-position: center;
     transition: transform 0.3s ease;
     cursor: pointer;
-    flex-shrink: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .gallery img:hover {
-    transform: scale(1.25);
+    transform: scale(1.15);
 }
+
 
 .donation-form {
     position: relative;
@@ -416,10 +412,22 @@ section#about {
     50% { transform: translateY(-10px); }
 }   
 
+.donation-button {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Space between button and message */
+}
+
+.login-message {
+    color: rgba(255, 255, 255, 0.6); /* Light, subdued color */
+    font-size: 1rem; /* Slightly smaller font size */
+    font-style: italic; /* Italicize for emphasis */
+}
+
 .donation-button button {
     background-color: var(--auth-button-background);
     color: var(--auth-button-text);
-    margin-top: 2rem;
+    margin: 1rem 0;
     padding: 10px 15px;
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -456,21 +464,38 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .footer-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    align-items: center;
+    align-items: flex-start; /* Align items to the start for consistent top alignment */
     width: 100%;
+}
+.footer-center {
+    text-align: center; /* Center the text */
+    margin-top: 2.25rem; /* Add some margin for spacing */
+}
 
+
+
+.footer-left, .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ensure items are aligned to the start */
 }
 
 .footer-left h3, .footer-right h3 {
+    display: inline-block;
     margin-bottom: 10px;
+    border-bottom: 1px solid var(--white-color);
+    padding-bottom: 2px;
+    line-height: 1.5; /* Set a consistent line height */
 }
-
+.footer-left .social-media, .footer-right a {
+    margin-top: 5px; /* Ensure consistent spacing below h3 */
+}
 
 .footer-links a, .social-media a {
     color: var(--white-color);
@@ -496,7 +521,7 @@ footer {
 .social-media a {
     color: white;
     font-size: 24px;
-    margin: 0 10px;
+    margin: 1rem 10px;
     transition: color 0.3s;
 }
 
@@ -635,7 +660,7 @@ footer {
     width: 80%;
     max-width: 450px;
     border-radius: 12px;
-    text-align: center;
+    text-align: left;
     border: 2px solid var(--modal-border);
     box-shadow: 0 0 30px var(--modal-shadow);
     max-height: 80vh; /* Limit the height of the modal content */
@@ -678,4 +703,79 @@ footer {
 
 .modal-content::-webkit-scrollbar-thumb:hover {
     background-color: var(--secondary-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 5rem;
+    }
+
+    header img {
+        width: 10rem;
+        height: 10rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .donation-form {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-left, .footer-right {
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 3rem;
+    }
+
+    header img {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .auth-buttons button {
+        width: 80px;
+        height: 35px;
+    }
+
+    .content img {
+        max-width: 20rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+
+    .donation-form {
+        padding: 20px;
+    }
 }
