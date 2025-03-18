@@ -153,6 +153,57 @@
         </div>
     </div>
 
+    <!-- Modal de Términos -->
+    <div id="termsModal" class="modal-scrollable">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Términos y Condiciones</h2>
+            <p>Bienvenido a nuestro sitio web. Al acceder y utilizar este sitio, usted acepta cumplir con los siguientes términos y condiciones.</p>
+                        
+            <h3>1. Uso del sitio</h3>
+            <p>Usted se compromete a usar este sitio solo para fines legales y de acuerdo con las leyes aplicables. Está prohibido utilizar este sitio de manera que pueda dañar, deshabilitar, sobrecargar o deteriorar cualquier servidor o red.</p>
+                        
+            <h3>2. Registro y cuenta</h3>
+            <p>Para utilizar ciertos servicios en el sitio, es posible que deba registrarse y crear una cuenta. Usted es responsable de mantener la confidencialidad de su cuenta y contraseña, y de todas las actividades que ocurran bajo su cuenta.</p>
+                        
+            <h3>3. Propiedad intelectual</h3>
+            <p>Todo el contenido disponible en este sitio, incluyendo textos, imágenes, logotipos, gráficos, es propiedad exclusiva del sitio o de sus licenciantes. Queda prohibida la reproducción, distribución o modificación sin autorización.</p>
+                        
+            <h3>4. Exoneración de responsabilidad</h3>
+            <p>El sitio no será responsable por ningún daño directo, indirecto, incidental o consecuente resultante del uso o la imposibilidad de usar este sitio, o de la interrupción de los servicios proporcionados en este sitio.</p>
+                        
+            <h3>5. Modificaciones</h3>
+            <p>Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Se le notificará de dichos cambios en el sitio web.</p>
+        </div>
+    </div>
+                        
+    <!-- Modal de Política de Privacidad -->
+    <div id="privacyModal" class="modal-scrollable">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Política de Privacidad</h2>
+            <p>En nuestro sitio web, valoramos su privacidad y nos comprometemos a proteger su información personal. Esta política de privacidad explica cómo recopilamos, usamos y protegemos su información.</p>
+                        
+            <h3>1. Información que recopilamos</h3>
+            <p>Recopilamos información personal que usted nos proporciona al registrarse en el sitio o al interactuar con nuestros servicios, como su nombre, dirección de correo electrónico, dirección IP y otra información relacionada.</p>
+                        
+            <h3>2. Uso de la información</h3>
+            <p>Utilizamos la información que recopilamos para mejorar nuestros servicios, procesar sus solicitudes, enviarle comunicaciones relacionadas con su cuenta, y para cumplir con nuestras obligaciones legales.</p>
+                        
+            <h3>3. Compartir información</h3>
+            <p>No compartimos su información personal con terceros, excepto cuando sea necesario para cumplir con una obligación legal o para mejorar nuestros servicios. En ningún caso venderemos su información personal a terceros.</p>
+                        
+            <h3>4. Seguridad</h3>
+            <p>Implementamos medidas de seguridad razonables para proteger su información personal contra el acceso no autorizado, la alteración o la divulgación. Sin embargo, no podemos garantizar la seguridad absoluta de los datos transmitidos a través de Internet.</p>
+                        
+            <h3>5. Derechos del usuario</h3>
+            <p>Usted tiene el derecho de acceder, corregir o eliminar su información personal. Si desea ejercer estos derechos, puede ponerse en contacto con nosotros a través de los medios proporcionados en el sitio web.</p>
+                        
+            <h3>6. Cambios en la política de privacidad</h3>
+            <p>Podemos actualizar esta política de privacidad ocasionalmente. Le notificaremos sobre cualquier cambio mediante una actualización en esta página.</p>
+        </div>
+    </div>
+
 
     <script src="scripts.js"></script>
 </body>

@@ -608,3 +608,49 @@ footer {
     color: var(--white-color);
 }
 
+.modal-scrollable {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Ensure modals are hidden by default */
+    align-items: center; /* Center items vertically */
+    justify-content: center;
+    z-index: 5; /* Ensure modals appear above other content */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden;
+    padding-top: 10px; /* Space at the top of the modal */
+    padding-bottom: 180px; /* Space at the bottom of the modal */
+}
+
+.modal-scrollable .modal-content {
+    position: relative;
+    background: var(--modal-background);
+    color: #f1f1f1;
+    padding: 30px;
+    width: 80%;
+    max-width: 450px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid var(--modal-border);
+    box-shadow: 0 0 30px var(--modal-shadow);
+    max-height: 80vh; /* Limit the height of the modal content */
+    overflow-y: auto; /* Enable scrolling within the modal content */
+    overflow-x: hidden;
+}
+
+.modal-scrollable .modal-content::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border-radius: 12px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.4) 20%, transparent 80%);
+    z-index: -1;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+}
+

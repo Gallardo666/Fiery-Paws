@@ -1,18 +1,16 @@
-// Modales existentes
+// Existing modals
 const registerModal = document.getElementById("registerModal");
 const loginModal = document.getElementById("loginModal");
 const openRegisterBtn = document.getElementById("openRegisterModal");
 const openLoginBtn = document.getElementById("openLoginModal");
-const closeBtns = document.querySelectorAll(".close");
 
-// Modales nuevos (Términos y privacidad)
+// New modals (Terms and Privacy)
 const termsModal = document.getElementById("termsModal");
 const privacyModal = document.getElementById("privacyModal");
 const openTermsModal = document.getElementById("openTermsModal");
 const openPrivacyModal = document.getElementById("openPrivacyModal");
-const closeModalBtns = document.querySelectorAll(".close, .close-btn");
 
-// Abrir los modales de registro y login
+// Open registration and login modals
 openRegisterBtn.onclick = function() {
     registerModal.style.display = "flex";
 }
@@ -21,28 +19,37 @@ openLoginBtn.onclick = function() {
     loginModal.style.display = "flex";
 }
 
-// Abrir los modales de términos y privacidad usando los enlaces <a>
+// Open terms and privacy modals using <a> links
 openTermsModal.onclick = function(event) {
-    event.preventDefault();  // Prevenir comportamiento por defecto de enlace
-    termsModal.style.display = "flex";  // Mostrar el modal de Términos y Condiciones
+    event.preventDefault();  // Prevent default link behavior
+    termsModal.style.display = "flex";  // Show Terms and Conditions modal
 }
 
 openPrivacyModal.onclick = function(event) {
-    event.preventDefault();  // Prevenir comportamiento por defecto de enlace
-    privacyModal.style.display = "flex";  // Mostrar el modal de Política de Privacidad
+    event.preventDefault();  // Prevent default link behavior
+    privacyModal.style.display = "flex";  // Show Privacy Policy modal
 }
 
-// Cerrar todos los modales (registro, login, términos, privacidad) cuando se haga clic en el botón de cerrar
-closeModalBtns.forEach(btn => {
+// Close all modals (registration, login, terms, privacy) when clicking the close button
+const closeBtns = document.querySelectorAll(".close");
+closeBtns.forEach(btn => {
     btn.onclick = function() {
-        registerModal.style.display = "none";
-        loginModal.style.display = "none";
-        termsModal.style.display = "none";
-        privacyModal.style.display = "none";
+        if (btn.closest('.modal') === registerModal) {
+            registerModal.style.display = "none";
+        }
+        if (btn.closest('.modal') === loginModal) {
+            loginModal.style.display = "none";
+        }
+        if (btn.closest('.modal') === termsModal) {
+            termsModal.style.display = "none";
+        }
+        if (btn.closest('.modal') === privacyModal) {
+            privacyModal.style.display = "none";
+        }
     }
 });
 
-// Cerrar modales si se hace clic fuera de ellos
+// Close modals if clicking outside of them
 window.onclick = function(event) {
     if (event.target === registerModal) {
         registerModal.style.display = "none";
@@ -58,7 +65,7 @@ window.onclick = function(event) {
     }
 }
 
-// Funcionalidad de registro
+// Registration functionality
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
         
@@ -97,7 +104,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
     xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
 };
 
-// Funcionalidad de login
+// Login functionality
 document.getElementById("loginForm").onsubmit = function(event) {
     event.preventDefault();
 
@@ -133,7 +140,7 @@ document.getElementById("loginForm").onsubmit = function(event) {
                     `;
                     document.getElementById("loginModal").style.display = "none"; // Cierra el modal
 
-                    // Actualiza el botón de donación en la sección "Donaciones"
+                    // Update the donation button in the "Donaciones" section
                     const donationButtonSection = document.querySelector('.donation-button');
                     if (donationButtonSection) {
                         donationButtonSection.innerHTML = `
