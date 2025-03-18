@@ -1,71 +1,94 @@
-// Existing modals
-const registerModal = document.getElementById("registerModal");
-const loginModal = document.getElementById("loginModal");
-const openRegisterBtn = document.getElementById("openRegisterModal");
-const openLoginBtn = document.getElementById("openLoginModal");
+document.addEventListener('DOMContentLoaded', () => {
+    // Ensure no modals are set to open automatically
+    const modals = document.querySelectorAll('.modal, .modal-scrollable');
+    modals.forEach(modal => {
+        modal.style.display = 'none'; // Ensure all modals are hidden initially
+    });
 
-// New modals (Terms and Privacy)
-const termsModal = document.getElementById("termsModal");
-const privacyModal = document.getElementById("privacyModal");
-const openTermsModal = document.getElementById("openTermsModal");
-const openPrivacyModal = document.getElementById("openPrivacyModal");
+    // Modales existentes
+    const registerModal = document.getElementById("registerModal");
+    const loginModal = document.getElementById("loginModal");
+    const openRegisterBtn = document.getElementById("openRegisterModal");
+    const openLoginBtn = document.getElementById("openLoginModal");
+    const closeBtns = document.querySelectorAll(".close");
 
-// Open registration and login modals
-openRegisterBtn.onclick = function() {
-    registerModal.style.display = "flex";
-}
+    // Modales nuevos (Términos y privacidad)
+    const termsModal = document.getElementById("termsModal");
+    const privacyModal = document.getElementById("privacyModal");
+    const openTermsModal = document.getElementById("openTermsModal");
+    const openPrivacyModal = document.getElementById("openPrivacyModal");
+    const closeModalBtns = document.querySelectorAll(".close, .close-btn");
 
-openLoginBtn.onclick = function() {
-    loginModal.style.display = "flex";
-}
+    // Abrir los modales de registro y login
+    openRegisterBtn.onclick = function() {
+        registerModal.style.display = "flex";
+    }
 
-// Open terms and privacy modals using <a> links
-openTermsModal.onclick = function(event) {
-    event.preventDefault();  // Prevent default link behavior
-    termsModal.style.display = "flex";  // Show Terms and Conditions modal
-}
+    openLoginBtn.onclick = function() {
+        loginModal.style.display = "flex";
+    }
 
-openPrivacyModal.onclick = function(event) {
-    event.preventDefault();  // Prevent default link behavior
-    privacyModal.style.display = "flex";  // Show Privacy Policy modal
-}
+    // Abrir los modales de términos y privacidad usando los enlaces <a>
+    openTermsModal.onclick = function(event) {
+        event.preventDefault();  // Prevenir comportamiento por defecto de enlace
+        termsModal.style.display = "flex";  // Mostrar el modal de Términos y Condiciones
+    }
 
-// Close all modals (registration, login, terms, privacy) when clicking the close button
-const closeBtns = document.querySelectorAll(".close");
-closeBtns.forEach(btn => {
-    btn.onclick = function() {
-        if (btn.closest('.modal') === registerModal) {
+    openPrivacyModal.onclick = function(event) {
+        event.preventDefault();  // Prevenir comportamiento por defecto de enlace
+        privacyModal.style.display = "flex";  // Mostrar el modal de Política de Privacidad
+    }
+
+    // Cerrar todos los modales (registro, login, términos, privacidad) cuando se haga clic en el botón de cerrar
+    closeModalBtns.forEach(btn => {
+        btn.onclick = function() {
+            registerModal.style.display = "none";
+            loginModal.style.display = "none";
+            termsModal.style.display = "none";
+            privacyModal.style.display = "none";
+        }
+    });
+
+    // Cerrar modales si se hace clic fuera de ellos
+    window.onclick = function(event) {
+        if (event.target === registerModal) {
             registerModal.style.display = "none";
         }
-        if (btn.closest('.modal') === loginModal) {
+        if (event.target === loginModal) {
             loginModal.style.display = "none";
         }
-        if (btn.closest('.modal') === termsModal) {
+        if (event.target === termsModal) {
             termsModal.style.display = "none";
         }
-        if (btn.closest('.modal') === privacyModal) {
+        if (event.target === privacyModal) {
             privacyModal.style.display = "none";
         }
     }
+
+    // Intersection Observer for sections
+    const sections = document.querySelectorAll('section');
+    const options = {
+        root: null,
+        rootMargin: '0px 0px -40% 0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+        });
+    }, options);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
 });
 
-// Close modals if clicking outside of them
-window.onclick = function(event) {
-    if (event.target === registerModal) {
-        registerModal.style.display = "none";
-    }
-    if (event.target === loginModal) {
-        loginModal.style.display = "none";
-    }
-    if (event.target === termsModal) {
-        termsModal.style.display = "none";
-    }
-    if (event.target === privacyModal) {
-        privacyModal.style.display = "none";
-    }
-}
-
-// Registration functionality
+// Funcionalidad de registro
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
         
@@ -104,7 +127,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
     xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
 };
 
-// Login functionality
+// Funcionalidad de login
 document.getElementById("loginForm").onsubmit = function(event) {
     event.preventDefault();
 
@@ -140,7 +163,7 @@ document.getElementById("loginForm").onsubmit = function(event) {
                     `;
                     document.getElementById("loginModal").style.display = "none"; // Cierra el modal
 
-                    // Update the donation button in the "Donaciones" section
+                    // Actualiza el botón de donación en la sección "Donaciones"
                     const donationButtonSection = document.querySelector('.donation-button');
                     if (donationButtonSection) {
                         donationButtonSection.innerHTML = `
