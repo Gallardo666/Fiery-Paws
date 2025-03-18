@@ -1,29 +1,48 @@
-// Modales
+// Modales existentes
 const registerModal = document.getElementById("registerModal");
 const loginModal = document.getElementById("loginModal");
 const openRegisterBtn = document.getElementById("openRegisterModal");
 const openLoginBtn = document.getElementById("openLoginModal");
 const closeBtns = document.querySelectorAll(".close");
 
-// Abrir el modal de registro (Sign Up)
+// Modales nuevos (Términos y privacidad)
+const termsModal = document.getElementById("termsModal");
+const privacyModal = document.getElementById("privacyModal");
+const openTermsModal = document.getElementById("openTermsModal");
+const openPrivacyModal = document.getElementById("openPrivacyModal");
+const closeModalBtns = document.querySelectorAll(".close, .close-btn");
+
+// Abrir los modales de registro y login
 openRegisterBtn.onclick = function() {
     registerModal.style.display = "flex";
 }
 
-// Abrir el modal de inicio de sesión (Sign In)
 openLoginBtn.onclick = function() {
     loginModal.style.display = "flex";
 }
 
-// Cerrar ambos modales cuando se haga clic en el botón de cerrar
-closeBtns.forEach(btn => {
+// Abrir los modales de términos y privacidad usando los enlaces <a>
+openTermsModal.onclick = function(event) {
+    event.preventDefault();  // Prevenir comportamiento por defecto de enlace
+    termsModal.style.display = "flex";  // Mostrar el modal de Términos y Condiciones
+}
+
+openPrivacyModal.onclick = function(event) {
+    event.preventDefault();  // Prevenir comportamiento por defecto de enlace
+    privacyModal.style.display = "flex";  // Mostrar el modal de Política de Privacidad
+}
+
+// Cerrar todos los modales (registro, login, términos, privacidad) cuando se haga clic en el botón de cerrar
+closeModalBtns.forEach(btn => {
     btn.onclick = function() {
         registerModal.style.display = "none";
         loginModal.style.display = "none";
+        termsModal.style.display = "none";
+        privacyModal.style.display = "none";
     }
 });
 
-// Cerrar el modal de Sign Up si haces clic fuera del área del modal
+// Cerrar modales si se hace clic fuera de ellos
 window.onclick = function(event) {
     if (event.target === registerModal) {
         registerModal.style.display = "none";
@@ -31,33 +50,15 @@ window.onclick = function(event) {
     if (event.target === loginModal) {
         loginModal.style.display = "none";
     }
+    if (event.target === termsModal) {
+        termsModal.style.display = "none";
+    }
+    if (event.target === privacyModal) {
+        privacyModal.style.display = "none";
+    }
 }
 
-// Asegurarnos de que todo esté listo una vez el DOM se haya cargado completamente
-document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section');
-        
-    const options = {
-        root: null,
-        rootMargin: '0px 0px -40% 0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            } else {
-                entry.target.classList.remove('active');
-            }
-        });
-    }, options);
-
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-});
-
+// Funcionalidad de registro
 document.getElementById("registerForm").onsubmit = function(event) {
     event.preventDefault();
         
@@ -96,6 +97,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
     xhr.send("username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
 };
 
+// Funcionalidad de login
 document.getElementById("loginForm").onsubmit = function(event) {
     event.preventDefault();
 
@@ -130,6 +132,16 @@ document.getElementById("loginForm").onsubmit = function(event) {
                         <button id="logoutBtn" onclick="window.location.href='logout.php'">Log Out</button>
                     `;
                     document.getElementById("loginModal").style.display = "none"; // Cierra el modal
+
+                    // Actualiza el botón de donación en la sección "Donaciones"
+                    const donationButtonSection = document.querySelector('.donation-button');
+                    if (donationButtonSection) {
+                        donationButtonSection.innerHTML = `
+                            <a href="donacion.php">
+                                <button>Donación</button>
+                            </a>
+                        `;
+                    }
                 }, 1000);
             } else {
                 loginMessage.textContent = response;

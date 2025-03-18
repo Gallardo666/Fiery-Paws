@@ -14,6 +14,7 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiery Paws - Donation</title>
+    <link rel="icon" href="Images/Logos/red-panda.png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -44,7 +45,7 @@ if (!isset($_SESSION['username'])) {
     </nav>
     <main>
         <div class="content">
-            <div class="donation-form" class="stars" id="stars">
+            <div class="donation-form">
                 <div class="form-section">
                     <h2>Haz una Donación</h2>
                     <form action="process_donation.php" method="POST">

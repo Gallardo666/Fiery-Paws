@@ -22,6 +22,7 @@
             <li><a href="#behavior">Comportamiento</a></li>
             <li><a href="#conservation">Conservación</a></li>
             <li><a href="#gallery">Galería</a></li>
+            <li><a href="#donaciones">Donaciones</a></li>
             <div class="auth-buttons">
                 <?php if (isset($_SESSION['username'])): ?>
                     <!-- Si el usuario está autenticado, muestra su nombre y opciones de donación y cierre de sesión -->
@@ -80,11 +81,30 @@
                     <img src="Images/PandaInfo/PandaRojo7.jpg" alt="Panda Rojo 7">
                 </div>
             </section>
+            <section id="donaciones">
+                <h2>Información sobre Donaciones</h2>
+                <p>Tu apoyo es fundamental para la conservación de los pandas rojos. Con tu donación, podemos ayudar a proteger su hábitat, combatir la caza furtiva y promover programas de concienciación.</p>
+                <p>Cada contribución cuenta y marca la diferencia en la vida de estos maravillosos animales.</p>
+                    <!--Añadir Mensaje de iniciar sesion para donar-->
+                <img src="Images/PandaInfo/AyudaPandaRojo.jpg" alt="Ayuda a los pandas rojos">
+                <div class="donation-button">
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <!-- Botón activo si el usuario está autenticado -->
+                        <a href="donacion.php">
+                            <button>Donación</button>
+                        </a>
+                    <?php else: ?>
+                        <!-- Botón inactivo si el usuario no está autenticado -->
+                        <button disabled style="opacity: 0.5; cursor: not-allowed;">Donación</button>
+                    <?php endif; ?>
+                </div>
+            </section>
         </div>
     </main>
     <footer>
         <div class="footer-content">
-            <div class="footer-left" style="margin-left: 30px;">
+            <div class="footer-left">
+                <h3>Síguenos</h3>
                 <div class="social-media">
                     <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
@@ -92,16 +112,16 @@
                 </div>
             </div>
             <div class="footer-center">
-                <p>&copy; 2023 Fiery Paws</p>
+                <p>&copy; 2024 Fiery Paws. Todos los derechos reservados.</p>
             </div>
             <div class="footer-right">
-                <div class="footer-links">
-                    <a href="privacy.html">Términos de Privacidad</a><br>
-                    <a href="terms.html">Términos y Condiciones</a>
-                </div>
+                <h3>Información</h3>
+                <a href="#" id="openTermsModal">Términos y Condiciones</a>
+                <a href="#" id="openPrivacyModal">Política de Privacidad</a>
             </div>
         </div>
     </footer>
+
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -132,6 +152,8 @@
             </form>
         </div>
     </div>
+
+
     <script src="scripts.js"></script>
 </body>
 </html>
